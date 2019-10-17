@@ -15,8 +15,9 @@ influxdb_password: !vault |
           30656531343237306531306634306432336263656332366131663130303666613434623263313330  
           6633393239643662310a306636613032323163303335306564623531373531393635656665383636  
           3936  
-# If influxdb_remote_ip != None (i.e. it's not blank), telegraf's config will use the  
-# following variables to output metrics to a second database.  
+          
+#&#x2060;# If influxdb_remote_ip != None (i.e. it's not blank), telegraf's config will use the  
+#&#x2060;# following variables to output metrics to a second database.  
 
 influxdb_remote_ip:  
 influxdb_remote_db: osn  
