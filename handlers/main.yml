@@ -1,0 +1,8 @@
+---
+- name: restart telegraf
+  service: 
+    name: telegraf
+    state: restarted
+
+- name: apply udev
+  shell: udevadm control --reload-rules && udevadm trigger

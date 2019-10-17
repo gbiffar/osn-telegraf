@@ -1,0 +1,84 @@
+[global_tags]
+  site = "{{ telegraf_site_name }}"
+  node_roll = "{{ telegraf_node_role }}"
+
+[agent]
+  interval = "1m"
+  round_interval = true
+
+  metric_batch_size = 1000
+
+  metric_buffer_limit = 100000
+
+  collection_jitter = "0s"
+
+  flush_interval = "10s"
+  flush_jitter = "0s"
+
+  precision = "ms"
+
+  debug = false
+  quiet = false
+  logfile = ""
+
+  hostname = ""
+  omit_hostname = false
+
+[[outputs.influxdb]]
+  urls = ["http://{{ influxdb_local_ip }}:8086"]
+  insecure_skip_verify = true
+  database = "{{ influxdb_db }}"
+  retention_policy = ""
+  write_consistency = "any"
+  timeout = "5s"
+   username = "{{ influxdb_username }}"
+   password = "{{ influxdb_password }}"
+
+{% if influxdb_remote_ip != None %}
+[[outputs.influxdb]]
+  urls = ["http://{{ influxdb_remote_ip }}:8086"]
+  insecure_skip_verify = true
+  database = "{{ influxdb_remote_db }}"
+  retention_policy = ""
+  write_consistency = "any"
+  timeout = "5s"
+   username = "{{ influxdb_remote_username }}"
+   password = "{{ influxdb_remote_password }}"
+{% endif %}
+
+[[inputs.cpu]]
+  percpu = false
+  totalcpu = true
+  collect_cpu_time = false
+  report_active = false
+
+[[inputs.ceph]]
+  interval = "1m"
+  ceph_binary = "/bin/ceph"
+  socket_dir = "/var/run/ceph"
+  mon_prefix = "ceph-mon"
+  osd_prefix = "ceph-osd"
+  socket_suffix = "asok"
+  ceph_user = "client.admin"
+  ceph_config = "/etc/ceph/ceph.conf"
+  gather_admin_socket_stats = true
+  gather_cluster_stats = false
+
+[[inputs.disk]]
+
+  ignore_fs = ["tmpfs", "devtmpfs", "devfs"]
+
+[[inputs.diskio]]
+
+[[inputs.ipmi_sensor]]
+  path = "/usr/bin/ipmitool"
+  interval = "60s"
+  timeout = "10s"
+
+[[inputs.mem]]
+
+[[inputs.net]]
+
+[[inputs.processes]]
+
+[[inputs.system]]
