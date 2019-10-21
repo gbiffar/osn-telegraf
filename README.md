@@ -4,14 +4,14 @@ This role installs telegraf for OSN pods. The role also installs ipmitool and se
 
 See defaults/main.yml for a list of variables
 
-Example playbook
+Example playbook:
 
-  - hosts:
-      - all-sites
-    remote_user: ansible
-    become: yes
-    become_method: sudo
-
-    roles:
-      - osn-telegraf
+\- hosts:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\- all-sites  
+&nbsp;&nbsp;&nbsp;remote_user: ansible  
+&nbsp;&nbsp;&nbsp;become: yes  
+&nbsp;&nbsp;&nbsp;become_method: sudo 
+<br /><br />
+&nbsp;&nbsp;&nbsp;roles:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- osn-telegraf
 
