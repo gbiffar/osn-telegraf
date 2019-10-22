@@ -52,17 +52,22 @@
   collect_cpu_time = false
   report_active = false
 
-[[inputs.ceph]]
-  interval = "1m"
-  ceph_binary = "/bin/ceph"
-  socket_dir = "/var/run/ceph"
-  mon_prefix = "ceph-mon"
-  osd_prefix = "ceph-osd"
-  socket_suffix = "asok"
-  ceph_user = "client.admin"
-  ceph_config = "/etc/ceph/ceph.conf"
-  gather_admin_socket_stats = true
-  gather_cluster_stats = false
+#[[inputs.ceph]]
+#  interval = "1m"
+#  ceph_binary = "/bin/ceph"
+#  socket_dir = "/var/run/ceph"
+#  mon_prefix = "ceph-mon"
+#  osd_prefix = "ceph-osd"
+#  socket_suffix = "asok"
+#  ceph_user = "client.admin"
+#  ceph_config = "/etc/ceph/ceph.conf"
+#  gather_admin_socket_stats = true
+#  gather_cluster_stats = false
+
+{% if ansible_hostname == telegraf_ceph_listener_hostname %}
+[[inputs.socket_listener]]
+  service_address = "udp://:8094"
+{% endif %}
 
 [[inputs.disk]]
 

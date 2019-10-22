@@ -2,6 +2,7 @@
 # osn-telegraf default vars
 telegraf_site_name: my-site
 telegraf_node_role: server
+telegraf_ceph_listener_hostname: sitecode-mon02-ext
 influxdb_local_ip: 172.16.2.12
 influxdb_db: osn
 influxdb_username: osn
