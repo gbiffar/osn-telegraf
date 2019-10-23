@@ -27,7 +27,18 @@
     owner: root
     group: root
     mode: 0664
-  notify: apply udev
+  notify: 
+    - udev reload
+    - udev trigger
+
+- name: check /dev/ipmi0 permissions
+  stat: 
+    path: /dev/ipmi0
+  register: ipmi0
+  changed_when: ipmi0.stat.gr_name != 'telegraf' or ipmi0.stat.mode != 0660
+  notify:
+    - udev reload
+    - udev trigger
 
 - name: telegraf config
   template:

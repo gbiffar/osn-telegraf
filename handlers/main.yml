@@ -4,5 +4,8 @@
     name: telegraf
     state: restarted
 
-- name: apply udev
-  shell: udevadm control --reload-rules && udevadm trigger
+- name: udev reload
+  command: udevadm control --reload
+
+- name: udev trigger
+  command: udevadm trigger
