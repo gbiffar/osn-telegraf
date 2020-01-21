@@ -36,7 +36,7 @@
 
 {% if influxdb_remote_ip != None %}
 [[outputs.influxdb]]
-  urls = ["http://{{ influxdb_remote_ip }}:8086"]
+  urls = ["https://{{ influxdb_remote_ip }}:8086"]
   insecure_skip_verify = true
   database = "{{ influxdb_remote_db }}"
   retention_policy = ""
