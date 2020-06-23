@@ -31,6 +31,14 @@
     - udev reload
     - udev trigger
 
+- name: sudo file for telegraf to get SMART stats
+  copy:
+    src: telegraf_sudo
+    dest: /etc/sudoers.d/telegraf_sudo
+    owner: root
+    group: root
+    mode: 0770
+
 - name: check /dev/ipmi0 permissions
   stat: 
     path: /dev/ipmi0
@@ -39,6 +47,14 @@
   notify:
     - udev reload
     - udev trigger
+
+- name: service check script
+  copy:
+    src: service_checks.sh
+    dest: /etc/telegraf/service_checks.sh
+    owner: telegraf
+    group: telegraf
+    mode: 0770
 
 - name: telegraf config
   template:
