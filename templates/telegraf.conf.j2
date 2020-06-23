@@ -52,21 +52,14 @@
   collect_cpu_time = false
   report_active = false
 
-#[[inputs.ceph]]
-#  interval = "1m"
-#  ceph_binary = "/bin/ceph"
-#  socket_dir = "/var/run/ceph"
-#  mon_prefix = "ceph-mon"
-#  osd_prefix = "ceph-osd"
-#  socket_suffix = "asok"
-#  ceph_user = "client.admin"
-#  ceph_config = "/etc/ceph/ceph.conf"
-#  gather_admin_socket_stats = true
-#  gather_cluster_stats = false
-
 {% if ansible_hostname == telegraf_ceph_listener_hostname %}
 [[inputs.socket_listener]]
   service_address = "udp://:8094"
+
+[[inputs.ping]]
+  url = ["172.16.3.111", "172.16.3.112", "172.16.3.113", "172.16.3.114", "172.16.3.115"]
+  count = 1
+  timeout = 3.0
 {% endif %}
 
 [[inputs.disk]]
@@ -74,6 +67,12 @@
   ignore_fs = ["tmpfs", "devtmpfs", "devfs"]
 
 [[inputs.diskio]]
+
+[[inputs.exec]]
+    command = "/etc/telegraf/service_checks.sh"
+    timeout = "10s"
+    interval = "1m"
+    data_format = "influx"
 
 [[inputs.ipmi_sensor]]
   path = "/usr/bin/ipmitool"
@@ -85,5 +84,8 @@
 [[inputs.net]]
 
 [[inputs.processes]]
+
+[[inputs.smart]]
+  use_sudo = true
 
 [[inputs.system]]
